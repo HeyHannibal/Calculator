@@ -1,44 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <main>
-        <div id="calculator">
-            <div id="display"></div>
-            <div id="numpad">
-                <div id="operandsAndOther">
-                    <input type="button" value="AC" id="clear"></input>
-                    <input type="button" value="C" id="backspace"></input>
-                    <input type="button" value="+/-" id="negative"></input>
-                    <input type="button" value="1" id="1" class="operand"></input>
-                    <input type="button" value="2" id="2" class="operand"></input>
-                    <input type="button" value="3" id="3" class="operand"></input>
-                    <input type="button" value="4" id="4" class="operand"></input>
-                    <input type="button" value="5" id="5" class="operand"></input>
-                    <input type="button" value="6" id="6" class="operand"></input>
-                    <input type="button" value="7" id="7" class="operand"></input>
-                    <input type="button" value="8" id="8" class="operand"></input>
-                    <input type="button" value="9" id="9" class="operand"></input>
-                    <input type="button" value="0" id="zero" class="operand"></input>
-                    <input type="button" value="." id="decimal"></input>
+    <main id="calculator">
+        <div id="display">
+            <p id="expression"></p>
+            <p id="resultDisplay"></p>
+        </div>
+
+        <div id="input">
+            <div id="renameToInput">
+                <div id="special">
+                    <button id="clear" value="clear">AC</button>
+                    <button id="backspace" value="backspace">C</button>
+                    <button id="minus" value="-">+/-</button>
                 </div>
-                <div id="operators">
-                    <input type="button" value="÷" id="0" class="operator"></input>
-                    <input type="button" value="×" id="1" class="operator"></input>
-                    <input type="button" value="-" id="2" class="operator"></input>
-                    <input type="button" value="+" id="3" class="operator"></input>
-                    <input type="button" value="=" id="return"></input>
+                <div id="numPad">
+                    <button id="1" value="1" class='operand'>1</button>
+                    <button id="2" value="2" class='operand'>2</button>
+                    <button id="3" value="3" class='operand'>3</button>
+                    <button id="4" value="4" class='operand'>4</button>
+                    <button id="5" value="5" class='operand'>5</button>
+                    <button id="6" value="6" class='operand'>6</button>
+                    <button id="7" value="7" class='operand'>7</button>
+                    <button id="8" value="8" class='operand'>8</button>
+                    <button id="9" value="9" class='operand'>9</button>
+                    <button id="." value="." class='operand'>.</button>
+                    <button id="zero" value="0" class='operand'>0</button>
                 </div>
             </div>
+            <div id='shitandpiss'>
+                <div id="operators">
+                    <button id="add" value="0" class="operator">+</button>
+                    <button id="subtract" value="1" class="operator">-</button>
+                    <button id="multiply" value="2" class="operator">×</button>
+                    <button id="divide" value="3" class="operator">÷</button>
+                </div>
+                <button id="return" value="return">=</button>
+            </div>
+
         </div>
     </main>
 </body>
 
 </html>
-</DOCTYPE>

@@ -1,132 +1,159 @@
-
-let arrAB = {
-    a:0,
-    b:0,
-};
-
-const add = function(a,b) {
-    return a + b; 
-};
-const subtract = function(a,b) {
-    return a - b; 
-};
-const multiply = function(a,b) {
-    return a * b;
-};
-const divide = function(a,b) {
-    return a / b; 
-};
 const operator = [
-    divide, 
-    multiply,
-    subtract,
-    add,
+  add = function (a, b) {
+    return a + b;
+  },
+  subtract = function (a, b) {
+    return a - b;
+  },
+  multiply = function (a, b) {
+    return a * b;
+  },
+  divide = function (a, b) {
+    return a / b;
+  }
 ]
 
-const operate = function(func, a,b) {   
-    if (b === 0 && func === operator[0]) {
-        display.textContent = "not today";
-    } 
-    else {
-        display.textContent = (func(a,b) % 1 != 0) ? parseFloat(func(a,b).toFixed(5)) : func(a,b);
-        arrAB["a"] = func(a,b);
-        arrAB["b"] = 0;
-        operand = "a";
-    }
-operandArray = []
-con()
+function operate() {
+  return operator[currentOperation](operands['a'], operands['b'])
 }
 
+let operands = {
+  a: 0,
+  b: 0,
+  result: undefined,
+}
 
-let operand = "a";
-let operandArray = [];
+let currentOperand;
+function selectOperand() {
+  if (operands.a === 0 && operands.b === 0) {
+    currentOperand = 'a'
+  }
+  else if (currentOperation != undefined) {
+    currentOperand = 'b'
+  }
+  else { currentOperand = 'b' }
+}
+selectOperand()
 
-const display = document.querySelector('#display');
-const allButtons = document.querySelector('.calculator');
-const numButtons  = document.querySelectorAll('.operand');
-
-numButtons.forEach(e => e.addEventListener('click', e => {
-    operandArray.push(e.target.value);
-    display.textContent = operandArray.join('');
-    arrAB[operand] = Number(operandArray.join(''));
-    con()
-}))
-
-let currentOperator
-const operatorButtons = document.querySelectorAll('.operator')
-operatorButtons.forEach(e => e.addEventListener('click', e => {
-    currentOperator = e.target.value;
-    operand = "b";   
-    operandArray = [];
-    if(arrAB["a"] != 0 && arrAB["b"] != 0) {
-        let a = arrAB["a"];
-        let b = arrAB["b"];
-        operate(func,a,b)
-        operand = "b"
-    }
-    func = operator[e.target.id]
-    con()
-}))
-
-const runTheOp = document.querySelector("#return");
-runTheOp.addEventListener('click', e=> {
-    let a = arrAB["a"];
-    let b = arrAB["b"];
-    operate(func,a,b)
-    })
-
-const clear = document.querySelector("#clear");
-clear.addEventListener('click', e => {
-  clearThis();
-  con()
+let currentSymb;
+let currentOperation;
+document.querySelector('#operators').addEventListener('click', e => {
+  if (operands['a'] != 0 && operands['b'] != 0) {
+    operands['result'] = operate();
+    operands['b'] = 0;
+    operands['a'] = 0;
+    resultDisplay.textContent = '';
+  }
+  if (operands['result'] != 0 && operands['a'] === 0) {
+    operands['a'] = operands['result'],
+      resultDisplay.textContent = '';
+    console.log(operands)
+  }
+  currentOperation = Number(e.target.value),
+    currentSymb = e.target.textContent
+  selectOperand()
+  display()
+  displayResult()
 })
 
-const backspace = document.querySelector('#backspace') 
-backspace.addEventListener('click', e=> {
-  operandArray = operandArray.slice(0, (operandArray.length - 1) )
-  console.log(operandArray);
-  arrAB[operand] = Number(operandArray.join(''));
-  display.textContent = operandArray.join('') 
-  con()
-})
+document.querySelector('#numPad').addEventListener('click', e => addNumber(e.target.value))
+function addNumber(element) {
+  if (element === "." && (operands[currentOperand] % 1 == 0)) {
+    operands[currentOperand] = operands[currentOperand] + "."
+  }
+  else if (element !== '.') {
+    operands[currentOperand] = Number(operands[currentOperand] + element);
+    console.log(operands)
+    display()
+    displayResult()
+  }
+}
 
-const decimal = document.querySelector('#decimal')
-decimal.addEventListener('click', e=>{
-    if (Number.isInteger(Number(display.textContent)) === false) { 
-    decimal.disabled = true
-    } 
-    else {
-    operandArray.push(e.target.value);
-    display.textContent = operandArray.join('');
-    arrAB[operand] = Number(operandArray.join(''));
-    }
-    decimal.disabled = false;
-})
-
-
-const negative = document.querySelector('#negative')
-negative.addEventListener('click', e=>{
-    if (Number(display.textContent) <= 0) { 
-        operandArray.shift("-");
-        display.textContent = operandArray.join('');
-        arrAB[operand] = Number(operandArray.join(''));
-    } 
-    else {
-        operandArray.unshift("-");
-        display.textContent = operandArray.join('');
-        arrAB[operand] = Number(operandArray.join(''));
-    }
-    decimal.disabled = false;
-    con()
-})
-
-function clearThis() {
-    arrAB['a'] = 0;
-    arrAB['b'] = 0;
-    display.textContent = ""; 
-    operandArray = [];
-    operand = "a"; }
-    function con() {
-        console.log(arrAB)
+document.querySelector('#return').addEventListener('click', function () {
+  if (currentOperation != undefined && operands['a'] != 0) {
+    operands['result'] = operate();
+    operands['b'] = 0;
+    operands['a'] = 0;
+    currentSymb = undefined;
   }
 
+  selectOperand()
+  displayResult()
+  console.log(operands)
+})
+
+
+document.querySelector('#clear').addEventListener('click', function () {
+  clear()
+})
+
+function clear() {
+  currentOperation = undefined;
+  currentSymb = undefined;
+  operands['a'] = 0;
+  operands['b'] = 0;
+  operands['result'] = 0;
+  expDisplay.textContent = '';
+  resultDisplay.textContent = '';
+  selectOperand()
+}
+
+document.querySelector('#backspace').addEventListener('click', function () {
+  toStr = operands[currentOperand].toString();
+  operands[currentOperand] = Number(toStr.slice(0, toStr.length - 1));
+  display()
+})
+
+document.querySelector('#minus').addEventListener('click', e => {
+  if (operands[currentOperand] > 0) {
+    operands[currentOperand] = Number('-' + operands[currentOperand])
+  }
+  else if (operands[currentOperand] < 0) {
+    operands[currentOperand] = -operands[currentOperand]
+  }
+  display()
+  console.log(operands)
+})
+
+const resultDisplay = document.querySelector('#resultDisplay')
+function displayResult() {
+  if ((operands['a'] === 0 && operands['b'] === 0) && operands['result'] != undefined) {
+    resultDisplay.textContent = floatLess(operands['result'])
+    if (expDisplay.textContent.slice(-1) != "=") {
+      expDisplay.textContent += '=';
+    }
+  }
+  else { resultDisplay.textContent = '' }
+}
+const expDisplay = document.querySelector('#expression')
+function display() {
+  let a = floatLess(operands['a'])
+  let b = floatLess(operands['b'])
+  let result
+  if (operands['result'] != undefined) {
+    result = floatLess(operands['result'])
+  }
+  if (currentSymb === undefined) {
+    expDisplay.textContent = a.toString()
+  }
+  else if (operands['b'] === 0 && currentSymb != undefined) {
+    expDisplay.textContent = a + currentSymb
+  }
+  else {
+    expDisplay.textContent = a.toString() + currentSymb + b.toString()
+  }
+}
+
+function floatLess(n) {
+  if (n % 1 != 0) {
+    let halveTheFloat = n.toString().split('.');
+    if (halveTheFloat[1].length > 7) {
+      let halvedFloat = halveTheFloat[1].slice(0,halveTheFloat[1].length / 2);
+      n = halveTheFloat[0] + '.' + halvedFloat
+    }
+    return n
+  }
+  else {
+    return n 
+  }
+}
