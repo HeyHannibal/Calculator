@@ -1,3 +1,4 @@
+
 const operator = [
   add = function (a, b) {
     return a + b;
@@ -57,7 +58,9 @@ document.querySelector('#operators').addEventListener('click', e => {
 })
 
 document.querySelector('#numPad').addEventListener('click', e => addNumber(e.target.value))
+  
 function addNumber(element) {
+if(!isNaN(element)) {
   if (element === "." && (operands[currentOperand] % 1 == 0)) {
     operands[currentOperand] = operands[currentOperand] + "."
   }
@@ -68,7 +71,7 @@ function addNumber(element) {
     displayResult()
   }
 }
-
+}
 document.querySelector('#return').addEventListener('click', function () {
   if (currentOperation != undefined && operands['a'] != 0) {
     operands['result'] = operate();
@@ -117,16 +120,26 @@ document.querySelector('#minus').addEventListener('click', e => {
 
 const resultDisplay = document.querySelector('#resultDisplay')
 function displayResult() {
+   if (operands['result'].toString().length >= 20) {resultDisplay.style.fontSize = '1.2rem'}
+  else if(operands['result'].toString().length > 15  ) {resultDisplay.style.fontSize = '1.5rem'}
+  else {resultDisplay.style.fontSize = '3rem'}
   if ((operands['a'] === 0 && operands['b'] === 0) && operands['result'] != undefined) {
+  
     resultDisplay.textContent = floatLess(operands['result'])
     if (expDisplay.textContent.slice(-1) != "=") {
       expDisplay.textContent += '=';
     }
+    console.log(operands['result'].toString().length)
   }
   else { resultDisplay.textContent = '' }
 }
 const expDisplay = document.querySelector('#expression')
 function display() {
+  if(operands['a'].toString().length > 15 || operands['b'].toString().length > 15) {expDisplay.style.fontSize = '1.5rem'}
+  else {expDisplay.style.fontSize = '2.5rem'}
+  if(operands['a'] > 1.1111111111111112e+211 || operands['b'] > 1.1111111111111112e+211) {expDisplay.textContent = 'Number too Big, Stop all the downloading!'}
+  if(isNaN(operands["a"]) || isNaN(operands["a"])) {expDisplay.textContent = 'Help Computer!'}
+
   let a = floatLess(operands['a'])
   let b = floatLess(operands['b'])
   let result
@@ -157,3 +170,6 @@ function floatLess(n) {
     return n 
   }
 }
+
+
+
