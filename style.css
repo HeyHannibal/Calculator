@@ -1,5 +1,6 @@
 body{
-    background-color: rgb(22, 22, 22);
+    background-color: #000000;
+    background-image: linear-gradient(147deg, #130a12 0%, #0c151a 74%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +11,7 @@ body{
     height: 550px;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.507);
+    box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.507);
     font-family: 'Roboto', sans-serif;
     z-index: 14;
 }
@@ -18,21 +19,19 @@ body{
     width: 300px;
     height: 550px;
     z-index: -19;
-    background: linear-gradient(22deg, rgb(45, 175, 226) 68%, #d5cde4 97%); 
+    background: linear-gradient(22deg, rgb(45, 175, 226) 68%, #cddfe4 97%); 
     position: absolute;
     border-radius: 5px 25px 25px 25px;
 
 }
 #display {
     z-index: 14;
-
     height: 28%;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     padding: 10px;
     padding-left: 10px;
-    /* background: linear-gradient(22deg, rgba(17,103,138,1) 16%, rgba(240, 15, 187, 0.568) 98%);; */
     justify-content: flex-end;
 }
 
@@ -65,15 +64,32 @@ body{
     flex-wrap: wrap;
     background: linear-gradient(90deg, rgb(198, 239, 255) 5%, rgb(218, 244, 255) 20%, rgba(222,246,255,1) 35%, rgba(255,255,255,1) 100%);
     border-radius: 0px 25px;
+    overflow: hidden;
+}    
+
+button:hover {
+    animation-name: buttonHover;
+    animation-duration: 150ms;
+    animation-fill-mode:forwards;
+} 
+button:focus {
+     animation-name: buttonPress;
+    animation-duration: 300ms;
+    animation-fill-mode:none;
 }
+button:active {
+   animation:none;
+}
+
 button{
     width: 75px;
     height: 75px;
     border:  none;
     background-color: transparent;
+    border-radius: 20px;
     color: #21404d;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.5rem;
+    font-size: 2.0rem;
     font-weight: 300;
 }
 #operators{
@@ -84,12 +100,19 @@ button{
     border-radius: 22px;
 }
 #operators .operator:hover{
-    background-color: rgb(255, 210, 235);
+    color:rgba(219, 31, 62, 0.685);
+
 }
 #numPad .operand:hover{
-    background-color: rgba(240, 102, 67, 0.336);
+    color: #5abce3;
 }
-
+.special:hover {
+    color: #ce5abad7;
+}
+#return:hover {
+    color: #0ec58e;
+    font-size: 2.6rem;
+}
 #numPad{
     display: flex;
     flex-wrap: wrap;
@@ -103,5 +126,30 @@ button{
 #renameToInput{
     width:225px ;
 }
+@keyframes buttonHover {   
+    to {
+        background-color:#96d7fd10;
+        box-shadow:1px 1px 10px #b7e3f5;
+    }
+}
+@keyframes buttonPress {
+    to {font-size: 1.9rem;
+        background-color:#96d7fd50;
+        box-shadow:1px 1px 5px #b7e3f5;
 
-
+    }
+}
+@keyframes returnHover {   
+    to {
+        background-color:#96fdde5b;
+        box-shadow:1px 1px 10px #b7e3f5;
+    }
+}
+#focus{
+        position: absolute;
+        left:     -100000px;
+        top:      auto;
+        width:    1px;
+        height:   1px;
+        overflow: hidden;
+}

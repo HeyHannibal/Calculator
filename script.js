@@ -48,7 +48,7 @@ document.querySelector('#operators').addEventListener('click', e => {
   if (operands['result'] != 0 && operands['a'] === 0) {
     operands['a'] = operands['result'],
       resultDisplay.textContent = '';
-    console.log(operands)
+    
   }
   currentOperation = Number(e.target.value),
     currentSymb = e.target.textContent
@@ -58,7 +58,6 @@ document.querySelector('#operators').addEventListener('click', e => {
 })
 
 document.querySelector('#numPad').addEventListener('click', e => addNumber(e.target.value))
-  
 function addNumber(element) {
 if(!isNaN(element)) {
   if (element === "." && (operands[currentOperand] % 1 == 0)) {
@@ -66,7 +65,7 @@ if(!isNaN(element)) {
   }
   else if (element !== '.') {
     operands[currentOperand] = Number(operands[currentOperand] + element);
-    console.log(operands)
+    
     display()
     displayResult()
   }
@@ -79,12 +78,10 @@ document.querySelector('#return').addEventListener('click', function () {
     operands['a'] = 0;
     currentSymb = undefined;
   }
-
   selectOperand()
   displayResult()
-  console.log(operands)
+  
 })
-
 
 document.querySelector('#clear').addEventListener('click', function () {
   clear()
@@ -115,7 +112,6 @@ document.querySelector('#minus').addEventListener('click', e => {
     operands[currentOperand] = -operands[currentOperand]
   }
   display()
-  console.log(operands)
 })
 
 const resultDisplay = document.querySelector('#resultDisplay')
@@ -129,7 +125,6 @@ function displayResult() {
     if (expDisplay.textContent.slice(-1) != "=") {
       expDisplay.textContent += '=';
     }
-    console.log(operands['result'].toString().length)
   }
   else { resultDisplay.textContent = '' }
 }
@@ -170,6 +165,10 @@ function floatLess(n) {
     return n 
   }
 }
-
+let unfocus =  document.querySelector('#input')
+unfocus.addEventListener('click', e =>{
+let i = document.querySelector('#focus');
+setTimeout(function(){i.focus();}, 1700) 
+})
 
 
